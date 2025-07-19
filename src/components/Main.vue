@@ -1,9 +1,13 @@
 <template>
   <v-responsive class="border rounded" max-height="300">
     <v-app>
-      <v-app-bar title="App bar"></v-app-bar>
+      <v-app-bar title="App bar">
+        <template v-slot:prepend>
+          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        </template>
+      </v-app-bar>
 
-      <v-navigation-drawer>
+      <v-navigation-drawer v-model="drawer">
         <v-list>
           <v-list-item title="Navigation drawer"></v-list-item>
         </v-list>
@@ -18,4 +22,7 @@
   </v-responsive>
 </template>
 <script setup lang="ts">
+import { ref } from 'vue'
+
+const drawer = ref(false)
 </script>
