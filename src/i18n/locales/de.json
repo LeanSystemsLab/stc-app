@@ -1,0 +1,14 @@
+{
+  "common": {
+    "appTitle": "STC Anwendung",
+    "navigation": {
+      "drawer": "Schublade"
+    }
+  },
+  "main": {
+    "greeting": "Hallo Tyler"
+  },
+  "appBar": {
+    "title": "Smart Trash Can"
+  }
+} 

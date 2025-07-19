@@ -1,0 +1,14 @@
+{
+  "common": {
+    "appTitle": "STC App",
+    "navigation": {
+      "drawer": "Navigation drawer"
+    }
+  },
+  "main": {
+    "greeting": "Hello Tyler"
+  },
+  "appBar": {
+    "title": "App bar"
+  }
+} 

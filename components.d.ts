@@ -8,6 +8,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    I18nExample: typeof import('./src/components/I18nExample.vue')['default']
+    LocaleSwitcher: typeof import('./src/components/LocaleSwitcher.vue')['default']
     Main: typeof import('./src/components/Main.vue')['default']
   }
 }
