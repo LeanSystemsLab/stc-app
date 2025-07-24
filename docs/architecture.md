@@ -1,4 +1,4 @@
-# Architecture of STC-app
+# Architecture of Smart Trash Can (STC) "App Edition"
 
 This document captures the architecture of the Smart Trash Can Application (STC-app), using the arc42 template.
 
