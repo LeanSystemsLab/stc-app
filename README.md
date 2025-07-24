@@ -1,81 +1,50 @@
-# Vuetify (Default)
+# Smart Trash Can Application (STC-app)
 
-This is the official scaffolding tool for Vuetify, designed to give you a head start in building your new Vuetify application. It sets up a base template with all the necessary configurations and standard directory structure, enabling you to begin development without the hassle of setting up the project from scratch.
+This project represents a case study from the Book **Product Velocity**.
+Learn more at [productvelocity.org](https://www.productvelocity.org).
 
-## ❗️ Important Links
+## Introduction
 
-- 📄 [Docs](https://vuetifyjs.com/)
-- 🚨 [Issues](https://issues.vuetifyjs.com/)
-- 🏬 [Store](https://store.vuetifyjs.com/)
-- 🎮 [Playground](https://play.vuetifyjs.com/)
-- 💬 [Discord](https://community.vuetifyjs.com)
+**Ava:** “Hey, where do I put the pizza box? Regular garbage or paper?”
 
-## 💿 Install
+**Ben:** “Neither. It goes into *Food & Yard Waste*.”
 
-Set up your project using your preferred package manager. Use the corresponding command to install the dependencies:
+**Ava:** “What? That does not make any sense! It's neither food nor yard waste!”
 
-| Package Manager                                                | Command        |
-|---------------------------------------------------------------|----------------|
-| [yarn](https://yarnpkg.com/getting-started)                   | `yarn install` |
-| [npm](https://docs.npmjs.com/cli/v7/commands/npm-install)     | `npm install`  |
-| [pnpm](https://pnpm.io/installation)                          | `pnpm install` |
-| [bun](https://bun.sh/#getting-started)                        | `bun install`  |
+**Carlos:** “That's Texas for you. In California, it’d go into *Compost*.”
 
-After completing the installation, your environment is ready for Vuetify development.
+**Ava:** “That's only slightly better. I would have put it into the paper bin.”
 
-## ✨ Features
+**Ben:** “Nah, you never do that. Sometimes you have to throw it into regular trash, like in New York.”
 
-- 🖼️ **Optimized Front-End Stack**: Leverage the latest Vue 3 and Vuetify 3 for a modern, reactive UI development experience. [Vue 3](https://v3.vuejs.org/) | [Vuetify 3](https://vuetifyjs.com/en/)
-- 🗃️ **State Management**: Integrated with [Pinia](https://pinia.vuejs.org/), the intuitive, modular state management solution for Vue.
-- 🚦 **Routing and Layouts**: Utilizes Vue Router for SPA navigation and vite-plugin-vue-layouts-next for organizing Vue file layouts. [Vue Router](https://router.vuejs.org/) | [vite-plugin-vue-layouts-next](https://github.com/loicduong/vite-plugin-vue-layouts-next)
-- 💻 **Enhanced Development Experience**: Benefit from TypeScript's static type checking and the ESLint plugin suite for Vue, ensuring code quality and consistency. [TypeScript](https://www.typescriptlang.org/) | [ESLint Plugin Vue](https://eslint.vuejs.org/)
-- ⚡ **Next-Gen Tooling**: Powered by Vite, experience fast cold starts and instant HMR (Hot Module Replacement). [Vite](https://vitejs.dev/)
-- 🧩 **Automated Component Importing**: Streamline your workflow with unplugin-vue-components, automatically importing components as you use them. [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
-- 🛠️ **Strongly-Typed Vue**: Use vue-tsc for type-checking your Vue components, and enjoy a robust development experience. [vue-tsc](https://github.com/johnsoncodehk/volar/tree/master/packages/vue-tsc)
+**Ava:** “That's crazy. How can anybody recycle correctly? We need to change this. **Let's develop an app for it!**”
 
-These features are curated to provide a seamless development experience from setup to deployment, ensuring that your Vuetify application is both powerful and maintainable.
+## Is this a hardware product?
 
-## 💡 Usage
+Even though we are developing an app, we have to take hardware into account: At a minimum, the smart phone camera, but there will be more.
 
-This section covers how to start the development server and build your project for production.
+This is the smallest case study from [Product Velocity](https://www.productvelocity.org). We include it so that
 
-### Starting the Development Server
+1. We better understand why software development is so blazingly fast these days;
+2. We understand that even for "pure software" product, we need to take the hardware that it's running on into account.
 
-To start the development server with hot-reload, run the following command. The server will be accessible at [http://localhost:3000](http://localhost:3000):
+## Read the book for details
 
-```bash
-yarn dev
-```
+This is a showcase project. So we will demonstrate best practices from the book in a fashion that will not slow us down. In this gitHub repository, we will capture artefacts, decisions and so forth. We will only briefly explain what we are doing and provide references to the book, where you can read the details.
 
-(Repeat for npm, pnpm, and bun with respective commands.)
+> 📘 **Book:** Case Studies, Chapter #.#
 
-> Add NODE_OPTIONS='--no-warnings' to suppress the JSON import warnings that happen as part of the Vuetify import mapping. If you are on Node [v21.3.0](https://nodejs.org/en/blog/release/v21.3.0) or higher, you can change this to NODE_OPTIONS='--disable-warning=5401'. If you don't mind the warning, you can remove this from your package.json dev script.
 
-### Building for Production
+## Select tools and templates
 
-To build your project for production, use:
+> ⏱️ 1 hour to:
+> * Select tools and template
+> * Set up the repository
+> * Add the Arc42 template to the repository
 
-```bash
-yarn build
-```
+**Decision** | **Reason** | **Result**
+-- | -- | --
+gitHub as the platform | It will be an open source project, gitHub is widely used and simple. | [Repository]()
+[arc42](https://arc42.org/) for documenting architecture | Lightweight and mature | [Architecture](https://github.com/LeanSystemsLab/stc-app)
 
-(Repeat for npm, pnpm, and bun with respective commands.)
-
-Once the build process is completed, your application will be ready for deployment in a production environment.
-
-## 💪 Support Vuetify Development
-
-This project is built with [Vuetify](https://vuetifyjs.com/en/), a UI Library with a comprehensive collection of Vue components. Vuetify is an MIT licensed Open Source project that has been made possible due to the generous contributions by our [sponsors and backers](https://vuetifyjs.com/introduction/sponsors-and-backers/). If you are interested in supporting this project, please consider:
-
-- [Requesting Enterprise Support](https://support.vuetifyjs.com/)
-- [Sponsoring John on Github](https://github.com/users/johnleider/sponsorship)
-- [Sponsoring Kael on Github](https://github.com/users/kaelwd/sponsorship)
-- [Supporting the team on Open Collective](https://opencollective.com/vuetify)
-- [Becoming a sponsor on Patreon](https://www.patreon.com/vuetify)
-- [Becoming a subscriber on Tidelift](https://tidelift.com/subscription/npm/vuetify)
-- [Making a one-time donation with Paypal](https://paypal.me/vuetify)
-
-## 📑 License
-[MIT](http://opensource.org/licenses/MIT)
-
-Copyright (c) 2016-present Vuetify, LLC
+## Initial draft of architecture documentation
