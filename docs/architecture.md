@@ -64,50 +64,65 @@ Reader | | Concepts in the book become more understandable by a working example.
 
 ### System Context
 
+The C4 System Context diagram visualizes everything our system (the STC) is interacting with. It defines the system's scope by showing who uses it, what external services it depends on, and how it fits into the broader environment. This helps establish clear boundaries and shared understanding early in the design process. Note that you can form sentences by following the arrows:
+
+```
+User → physically disposes trash into → bins
+```
 
 
 ```mermaid
-graph TD
+flowchart TD
     %% Nodes
-    user(["👤 User<br/><small>A person with trash</small>"])
-    oauth(["OAuth<br/><small>If used with account</small>"])
-    stc["STC-app<br/><small>Smart Trash Can App</small>"]
-    bins(["Bins<br/><small>Recycling bins (region-specific)</small>"])
+    user(["👤 User<br/><small>A person with trash in front of recycling bins</small>"])
+    oauth(["OAuth Provider<br/><small>Authenticates users</small>"])
+    stc["Smart Trash Can (STC)<br/><small>STC App on Smartphone</small>"]
+    bins(["Bins<br/><small>Recycling bins (region-specific) for various classes of trash</small>"])
     server(["AI API Server<br/><small>External classification service</small>"])
 
     %% Edges
-    user -->|uses to classify and dispose of trash| stc
-    stc -->|requests classification using image| server
-    user -->|physically disposes trash| bins
-    stc -->|suggests correct bin| bins
-    stc -->|user authentication| oauth
-
+    user -->| classifies trash via smartphone camera using | stc
+    stc -->|requests classification of trash image using | server
+    user -->|physically disposes trash into | bins
+    stc -->|suggests the correct bin from | bins
+    stc -->|requests user authentication from | oauth
 ```
 
 ### Container View
 
+The C4 Container diagram zooms into the STC system to show its internal structure. It illustrates the major building blocks—called containers—such as the web app, backend server, and database, and explains how they interact. This level of detail clarifies how responsibilities are split across components and how data flows through the system. 
+
+We add additional technical information. In addition to the verbal description, for Containers we add types and technologies (e.g. MongoDB), and for relationships we add protocols (e.g. JSON/HTTPS).
+
+
 ```mermaid
-graph TD
+flowchart TD
     %% External Actors
-    user["👤 User<br/><small>Interacts with the client app</small>"]
-    serverAI["AI API Server<br/><small>External service for trash classification</small>"]
-    oauth["OAuth Provider<br/><small>User authentication (optional)</small>"]
+    user(["👤 User<br/><small>【Person】<br/>Interacts with the client app</small>"])
+    trash(["Trash<br/><small>【Physical Item】<br/>Unsorted Trash</small>"])
+    oauth(["OAuth Provider<br/><small>【Cloud Service】<br/>Auth0 used for user authentication</small>"])
+    serverAI(["AI Server<br/><small>【Cloud Service】<br/>GPT API used for trash classification</small>"])
 
     %% Internal Containers
-    client["Client App<br/><small>Mobile or web app used by the user</small>"]
-    backend["Backend Server<br/><small>Handles logic, bin suggestion, authentication, API access</small>"]
+    client["Single-Page Web App<br/><small>【Typescript and vue/vuetify】<br/>Web app used by the user</small>"]
+    db["🛢️ Database<br/><small>【MongoDB】<br/>Stores user information.</small>"]
 
-    %% Grouping: STC-app
-    subgraph STC-app
+    backend["Backend Server<br/><small>【Typescript and node】<br/>Handles logic, bin suggestion, authentication, API access</small>"]
+    
+    %% Grouping: STC
+    subgraph STC
         client
         backend
+        db
     end
 
     %% Relationships
-    user --> client
-    client -->|REST API| backend
-    backend --> serverAI
-    backend --> oauth
+    user --> | uses web app<br/><small>【HTTPS】</small>| client
+    client --> | makes API calls to<br/><small>【JSON/HTTPS】</small>| backend
+    trash --> | captured with camera<br/><small>【WebRTC API】</small> |client
+    backend --> | reads from and writes to<br/><small>【MongoDB protocol】</small> | db
+    backend ---> | makes API calls to<br/><small>【JSON/HTTPS】</small> | serverAI
+    backend ---> | makes API calls to<br/><small>【JSON/HTTPS】</small> | oauth
 ```
 
 # Building Block View
