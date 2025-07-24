@@ -60,30 +60,55 @@ Reader | | Concepts in the book become more understandable by a working example.
 
 # Solution Strategy
 
-```mermaid 
-    C4Context
-    title STC-app context diagram
-    Person(user, "User", "A person with trash")
-    System(stc, "STC-app", "Smart Trash Can App")
-    System_Ext(server, "AI API Server", "External service for trash classification")
-    System_Ext(bins, "Bins", "A unit of recycling bins")
-    Rel(user, stc, "uses to classify and dispose of trash")
-    Rel(stc, bins, "suggests correct bin")
-    Rel(stc, server, "requests classification using image")
-    Rel(user, bins, "physically disposes trash")
-    Lay_D(bins, stc)
-```
+> 💡 **C4 Model** We want to use a C4 model for our architecture. However, gitHub rendering (mermaid) has only limited C4 support. We have to make a trade-off between (1) pretty rendering, but not having a single source, (2) ugly rendering and single source, or (3) pretty rendering, but not being 100% C4-compliant. This is option (3).
+
+### System Context
 
 
 
-```mermaid 
+```mermaid
 graph TD
-    User <--> STC-app
-    Trash --> STC-app
-    STC-app <--> STC-Server
-    Trash --> Bin
+    %% Nodes
+    user(["👤 User<br/><small>A person with trash</small>"])
+    oauth(["OAuth<br/><small>If used with account</small>"])
+    stc["STC-app<br/><small>Smart Trash Can App</small>"]
+    bins(["Bins<br/><small>Recycling bins (region-specific)</small>"])
+    server(["AI API Server<br/><small>External classification service</small>"])
+
+    %% Edges
+    user -->|uses to classify and dispose of trash| stc
+    stc -->|requests classification using image| server
+    user -->|physically disposes trash| bins
+    stc -->|suggests correct bin| bins
+    stc -->|user authentication| oauth
+
 ```
 
+### Container View
+
+```mermaid
+graph TD
+    %% External Actors
+    user["👤 User<br/><small>Interacts with the client app</small>"]
+    serverAI["AI API Server<br/><small>External service for trash classification</small>"]
+    oauth["OAuth Provider<br/><small>User authentication (optional)</small>"]
+
+    %% Internal Containers
+    client["Client App<br/><small>Mobile or web app used by the user</small>"]
+    backend["Backend Server<br/><small>Handles logic, bin suggestion, authentication, API access</small>"]
+
+    %% Grouping: STC-app
+    subgraph STC-app
+        client
+        backend
+    end
+
+    %% Relationships
+    user --> client
+    client -->|REST API| backend
+    backend --> serverAI
+    backend --> oauth
+```
 
 # Building Block View
 

@@ -44,7 +44,7 @@ This is a showcase project. So we will demonstrate best practices from the book 
 
 **Decision** | **Reason** | **Result**
 -- | -- | --
-gitHub as the platform | It will be an open source project, gitHub is widely used and simple. | [Repository]()
-[arc42](https://arc42.org/) for documenting architecture | Lightweight and mature | [Architecture](https://github.com/LeanSystemsLab/stc-app)
+gitHub as the platform | It will be an open source project, gitHub is widely used and simple. | [Repository](https://github.com/LeanSystemsLab/stc-app/)
+[arc42](https://arc42.org/) for documenting architecture | Lightweight and mature | [Architecture](docs/architecture.md)
 
 ## Initial draft of architecture documentation
