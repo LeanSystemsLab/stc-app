@@ -1,14 +1,14 @@
-# Architecture of Smart Trash Can (STC) "App Edition"
+# Architecture of Smart Trash Can (STC) "Web Edition"
 
-This document captures the architecture of the Smart Trash Can Application (STC-app), using the arc42 template.
+This document captures the architecture of the web variant of the Smart Trash Can System (STC System), using the arc42 template.
 
 # Introduction and Goals
 
-This app helps people put their trash into the right bin by analyzing the trash with their smartphone camera.
+This system helps people put their trash into the right bin by analyzing the trash with their smartphone camera.
 
 ## Feature Overview
 
-This section outlines the high-level functional capabilities of the app.
+This section outlines the high-level functional capabilities of the system.
 
 ### Essential Features
 
@@ -17,8 +17,8 @@ This section outlines the high-level functional capabilities of the app.
 
 ### Optional Features
 
-* Generate printable labels with QR codes that the user can attach to a trash area to allow the app to identify it
-* Order replacement trash bags via the app
+* Generate printable labels with QR codes that the user can attach to a trash area to allow the web application to identify it
+* Order replacement trash bags via the web application
 
 ## Quality Goals
 
@@ -28,10 +28,10 @@ Quality Goal | Reason
 --- | ---
 Maintainable and readable codebase with clear documentation | Supports educational use and makes it easy for readers and contributors to understand and extend the system.
 Usable out-of-the-box with minimal configuration | Encourages adoption and lowers barriers to experimentation and learning, especially in a book/tutorial context.
-Secure handling of sensitive user data (images, location, authentication) | The app processes potentially sensitive data; clear security practices are necessary to prevent leaks or abuse.
+Secure handling of sensitive user data (images, location, authentication) | The system processes potentially sensitive data; clear security practices are necessary to prevent leaks or abuse.
 Responsive and intuitive UI on mobile devices | Core user flow relies on smartphone interaction; the interface must be seamless on small screens with limited input methods.
-Robust against third-party API failures | Reliance on external services (Auth0, GPT) introduces fragility. The app must fail gracefully or provide fallback options.
-Cross-platform browser compatibility | The web app must function consistently across common mobile browsers to avoid excluding users.
+Robust against third-party API failures | Reliance on external services (Auth0, GPT) introduces fragility. The system must fail gracefully or provide fallback options.
+Cross-platform browser compatibility | The web application must function consistently across common mobile browsers to avoid excluding users.
 Low cost of operation with usage limits | Prevents abuse of paid APIs and enables cost control for self-hosted deployments.
 
 ## Stakeholders
@@ -66,7 +66,7 @@ flowchart TD
     %% Nodes
     user(["👤 User<br/><small>A person with trash in front of recycling bins</small>"])
     oauth(["OAuth Provider<br/><small>Authenticates users</small>"])
-    stc["Smart Trash Can (STC)<br/><small>STC App on Smartphone</small>"]
+    stc["Smart Trash Can (STC)<br/><small>STC System with web application interface</small>"]
     bins(["Bins<br/><small>Recycling bins (region-specific) for various classes of trash</small>"])
     server(["AI API Server<br/><small>External classification service</small>"])
 
@@ -84,14 +84,14 @@ We make the following decisions for this project.
 
 **Decision** | **Rationale / Description**
 --- | ---
-Use a single git repository for all code and scripts | For a small, simple app with a tightly coupled frontend and backend, as well as a small team, the complexity of multiple repositories is not justified
+Use a single git repository for all code and scripts | For a small, simple system with a tightly coupled frontend and backend, as well as a small team, the complexity of multiple repositories is not justified
 Use GitHub for code, issues, CI/CD workflows, and community collaboration | It will be an open source project; GitHub is widely used and simple
 Use automated testing via Jest, Supertest, and Cypress | Ensure stability and maintainability by adopting a layered testing strategy
-Docker Deployment with Docker Compose | Docker standardizes environments across dev/test/deploy. This app is unlikely to require scalability, but if it does, switching to Kubernetes would be fairly easy
+Docker Deployment with Docker Compose | Docker standardizes environments across dev/test/deploy. This system is unlikely to require scalability, but if it does, switching to Kubernetes would be fairly easy
 Use TypeScript as primary programming language | Widely supported, strong typing, scalable, state of the art
 Use Single Page App (SPA) with TypeScript Vue/Vuetify | Enables cross-platform deployment via browser. Allows installable experience without going through app stores. Simplifies client updates
 Use Node.js backend with MongoDB | Simplifies development using TypeScript stack end-to-end. MongoDB supports flexible schema for user and session data
-Use OAuth (Auth0) for user authentication | Provides secure, standardized user login. Offloads auth logic from app backend
+Use OAuth (Auth0) for user authentication | Provides secure, standardized user login. Offloads auth logic from system backend
 Use GPT API for trash classification | Leverages high-quality image classification via external AI service. Avoids local model maintenance
 Use AI and location to find recycling rules | Provides GPS coordinates to the AI to ensure the correct recycling rules are used. While this might not be 100% accurate all the time, it's a pragmatic choice for this project
 
@@ -113,13 +113,13 @@ We add additional technical information. In addition to the verbal description, 
 ```mermaid
 flowchart TD
     %% External Actors
-    user(["👤 User<br/><small>【Person】<br/>Interacts with the client app</small>"])
-    smartphone(["Smartphone<br/><small>【Host Device】<br/>Device the app runs on in web browser or as web app</small>"])
+    user(["👤 User<br/><small>【Person】<br/>Interacts with the web application, trash and bins</small>"])
+    smartphone(["Smartphone<br/><small>【Host Device】<br/>Device the web application runs on</small>"])
     oauth(["OAuth Provider<br/><small>【Cloud Service】<br/>Auth0 used for user authentication</small>"])
     serverAI(["AI Server<br/><small>【Cloud Service】<br/>GPT API used for trash classification</small>"])
 
     %% Internal Containers
-    client["Single-Page Web App<br/><small>【TypeScript and Vue/Vuetify】<br/>Web app used by the user</small>"]
+    client["Single-Page Web App<br/><small>【TypeScript and Vue/Vuetify】<br/>Interface used by the user</small>"]
     db["🛢️ Database<br/><small>【MongoDB】<br/>Stores user information</small>"]
 
     backend["Backend Server<br/><small>【TypeScript and Node】<br/>Handles logic, bin suggestion, authentication, API access</small>"]
@@ -132,7 +132,7 @@ flowchart TD
     end
 
     %% Relationships
-    user --> | uses web app<br/><small>【HTTPS】</small>| client
+    user --> | interacts with<br/><small>【HTTPS】</small>| client
     client --> | makes API calls to<br/><small>【JSON/HTTPS】</small>| backend
     smartphone --> | captures trash with camera and location<br/><small>【WebRTC API】</small> |client
     backend --> | reads from and writes to<br/><small>【MongoDB protocol】</small> | db
@@ -148,7 +148,7 @@ Component-specific information will be documented together with code, not in thi
 
 # Runtime View
 
-This section visualizes dynamic aspects, typically with sequence diagrams. For an application as simple as this one, a diagram is almost overkill. Therefore, we only show the first one with a diagram.
+This section visualizes dynamic aspects, typically with sequence diagrams. For a system as simple as this one, a diagram is almost overkill. Therefore, we only show the first one with a diagram.
 
 ## Normal Usage
 
@@ -180,9 +180,13 @@ Other scenarios include:
 
 # Deployment View
 
-The Smart Trash Can (STC) app is deployed as a web-based system composed of a frontend Single Page Application (SPA), a backend service, and external service integrations. It is designed for low-friction deployment using Docker Compose, suitable for small-scale usage and self-hosting by users or readers of the book.
+The Smart Trash Can (STC) system will be deployed in docker containers.
 
-We make the decision to run the app and backend from the same container. This simplifies the deployment significantly, as the two will always be synchronized and we won't have to deal with CORS.
+The STC system is composed of containers hosting a frontend Single Page Application (SPA), a backend service, and a database server. The backend service connects to external service integrations. 
+
+We make the decision to run the web application and backend from the same container. This simplifies the deployment significantly, as the two will always be synchronized and we won't have to deal with CORS.
+
+The system is designed for low-friction deployment using Docker Compose, suitable for small-scale usage and self-hosting by users or readers of the book.
 
 ## Mapping of Building Blocks to Infrastructure
 
