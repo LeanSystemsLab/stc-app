@@ -26,9 +26,13 @@ These goals define non-functional priorities such as maintainability, usability,
 
 Quality Goal | Reason
 --- | ---
-Code and documentation follows best practices | Main purpose of this project is the book, not trash management
-App works directly after installation | Low-friction user experience
-Number of uses is limited until the user either pays or provides an AI API key | We need some kind of cost control, but reject ad revenue to finance the app
+Maintainable and readable codebase with clear documentation | Supports educational use and makes it easy for readers and contributors to understand and extend the system.
+Usable out-of-the-box with minimal configuration | Encourages adoption and lowers barriers to experimentation and learning, especially in a book/tutorial context.
+Secure handling of sensitive user data (images, location, authentication) | The app processes potentially sensitive data; clear security practices are necessary to prevent leaks or abuse.
+Responsive and intuitive UI on mobile devices | Core user flow relies on smartphone interaction; the interface must be seamless on small screens with limited input methods.
+Robust against third-party API failures | Reliance on external services (Auth0, GPT) introduces fragility. The app must fail gracefully or provide fallback options.
+Cross-platform browser compatibility | The web app must function consistently across common mobile browsers to avoid excluding users.
+Low cost of operation with usage limits | Prevents abuse of paid APIs and enables cost control for self-hosted deployments.
 
 ## Stakeholders
 
