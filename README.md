@@ -34,7 +34,6 @@ This is a showcase project. So we will demonstrate best practices from the book 
 
 > 📘 **Book:** Case Studies, Chapter #.#
 
-
 ## Product Velocity: How fast?
 
 Here, we document the effort that it took to create this app from idea to launch to feature complete.
@@ -81,3 +80,18 @@ Folder | Description
 
 
 ### 4h: Creating a skeleton for the frontend
+
+Our goal is to get to a minimal viable product (MVP) as quickly as possible. Ava decides to start with the front end.
+
+> ⚠️ **Avoid AI for architecture:** It might be tempting to create the stub code with AI tools. If possible, don't. Instead, see whether ready-to use templates are available. Those use the latest insights and follow best practices
+
+On the command line, [create-vue](https://github.com/vuejs/create-vue) creates a good starting point in less than a minute.
+
+![create-vue CLI screencast](https://raw.githubusercontent.com/vuejs/create-vue/refs/heads/main/media/screencast-cli.gif)
+
+In these 4 hours, Ava:
+
+* Adds [Vuetify Application](https://vuetifyjs.com/en/components/application/) to add an application bar and navigation content
+* Add an internationalization framework including language chooser, so that we can translate the application easily
+* Adds a README.md for the frontend, so other developers will get up to speed quickly
+* Configures VSCode to not show any warnings and to make development efficient
